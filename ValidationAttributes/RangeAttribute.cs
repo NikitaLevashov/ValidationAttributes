@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ValidationAttributes
 {
-    public class RangeAttribute : BaseAttribute
+    public class RangeAttribute : ValidationAttribute
     {
         public int MinNumber { get; }
         public int MaxNumber { get; }
@@ -15,5 +15,11 @@ namespace ValidationAttributes
             MaxNumber = maxnumber;
             MinNumber = minnumber;
         }
+
+        public override bool IsValid(object obj) => obj switch
+        {
+            int value when value >= MinNumber && value <= MaxNumber => true,
+            _ => false,
+        };
     }
 }

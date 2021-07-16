@@ -16,11 +16,10 @@ namespace ValidationAttributes.Tests
 
             string message;
             ValidationService service = new ValidationService();
-            var result = service.Validate<PersonTest>(person, out message);
-            string expectedErrorMessage = " Age Error: Property is not valid.";
+            var result = service.Validate<PersonTest>(person);
+            string expectedErrorMessage = " Name is valid. Age is not valid.  Error: Property is not valid. LastName is valid.";
 
-            Assert.AreEqual(expectedErrorMessage, message);
-            Assert.IsFalse(result);
+            Assert.AreEqual(expectedErrorMessage, result);
         }
 
         [Test]
@@ -35,11 +34,10 @@ namespace ValidationAttributes.Tests
 
             string message;
             ValidationService service = new ValidationService();
-            var result = service.Validate<PersonTest>(person, out message);
-            string expectedErrorMessage = " Name Error: String length is greater than maximum length. Age Error: Property is not valid. Error: LastName is empty.";
+            var result = service.Validate<PersonTest>(person);
+            string expectedErrorMessage = " Name is not valid.  Error: String length is greater than maximum length. Age is not valid.  Error: Property is not valid. LastName is valid.";
 
-            Assert.AreEqual(expectedErrorMessage, message);
-            Assert.IsFalse(result);
+            Assert.AreEqual(expectedErrorMessage, result);
         }
 
         [Test]
@@ -52,14 +50,11 @@ namespace ValidationAttributes.Tests
                 Height = 180
             };
 
-            string message;
             ValidationService service = new ValidationService();
-            var result = service.Validate<PersonStructTest>(person, out message);
-            string expectedErrorMessage = "OK";
+            var result = service.Validate<PersonStructTest>(person);
+            string expectedErrorMessage = " Name is valid. Age is valid. Height is valid.";
 
-            Assert.AreEqual(expectedErrorMessage, message);
-            Assert.IsTrue(result);
+            Assert.AreEqual(expectedErrorMessage, result);
         }
-
     }
 }

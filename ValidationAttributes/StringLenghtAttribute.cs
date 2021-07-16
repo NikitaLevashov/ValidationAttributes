@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace ValidationAttributes
 {
-    public class StringLenghtAttribute : BaseAttribute
+    public class StringLenghtAttribute : ValidationAttribute
     {
         public int MaxLenght { get; }
         public StringLenghtAttribute(int maxLenght)
         {
             MaxLenght = maxLenght;
         }
+        public override bool IsValid(object obj) => !(obj.ToString().Length > MaxLenght);
     }
 }

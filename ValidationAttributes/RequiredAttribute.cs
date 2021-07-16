@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ValidationAttributes
 {
-    public class RequiredAttribute : BaseAttribute
+    public class RequiredAttribute : ValidationAttribute
     {
+        public override bool IsValid(object obj) => !(obj == null);
     }
 }
